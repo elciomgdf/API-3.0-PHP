@@ -3,6 +3,7 @@
 namespace Cielo\API30;
 
 /**
+ * Alterado para teste
  * Interface Environment
  *
  * @package Cielo\API30
