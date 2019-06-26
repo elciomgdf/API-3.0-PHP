@@ -55,7 +55,8 @@ abstract class AbstractRequest
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_SSLVERSION, 6); //CURL_SSLVERSION_TLSv1_2
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $environment ? $environment->isProduction() : true);
+//        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $environment ? $environment->isProduction() : true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
         switch ($method) {
             case 'GET':
@@ -111,12 +112,6 @@ abstract class AbstractRequest
                 $exception = null;
                 $response  = json_decode($responseBody);
 
-                echo '<pre>'.__FILE__.'('.__LINE__.')'."\n";
-                var_dump($responseBody);
-                echo '</pre>';
-                exit;
-
-
                 if (!$response) {
                     throw new CieloRequestException('Response cound not coverted to json', 400, null);
                 }
@@ -128,6 +123,7 @@ abstract class AbstractRequest
                 }
 
                 throw $exception;
+            case 401:
             case 404:
                 throw new CieloRequestException('Resource not found', 404, null);
             default:
