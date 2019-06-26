@@ -66,7 +66,12 @@ class RecurrentPayment implements \JsonSerializable
             $recurrentPayment->populate($object->RecurrentPayment);
         }
 
+        if (isset($object->Customer)) {
+            $recurrentPayment->CustomerName = $object->Customer->Name;
+        }
+
         return $recurrentPayment;
+
     }
 
 
@@ -325,5 +330,5 @@ class RecurrentPayment implements \JsonSerializable
 
     }
 
-    
+
 }
