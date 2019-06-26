@@ -39,6 +39,7 @@ class RecurrentPayment implements \JsonSerializable
     private $reasonCode;
     private $reasonMessage;
     private $status;
+    private $statusText;
 
     /**
      * RecurrentPayment constructor.
@@ -68,6 +69,22 @@ class RecurrentPayment implements \JsonSerializable
         return $recurrentPayment;
     }
 
+
+    private static function statusToText($status) {
+
+        switch ((int)$status) {
+            case 1: return 'Ativo'; break;
+            case 2: return 'Finalizado'; break;
+            case 3: return 'Desativada pelo Lojista'; break;
+            case 4: return 'Desativada por numero de retentativas'; break;
+            case 5: return 'Desativada por cartão de crédito vencido'; break;
+        }
+
+        return 'Status não definido na documentação da Cielo';
+
+    }
+
+
     /**
      * @param \stdClass $data
      */
@@ -95,6 +112,7 @@ class RecurrentPayment implements \JsonSerializable
         $this->reasonCode    = isset($data->ReasonCode) ? $data->ReasonCode : null;
         $this->reasonMessage = isset($data->ReasonMessage) ? $data->ReasonMessage : null;
         $this->status        = isset($data->Status) ? $data->Status : null;
+        $this->statusText        = isset($data->Status) ? self::statusToText($data->Status) : null;
     }
 
     /**
@@ -288,4 +306,24 @@ class RecurrentPayment implements \JsonSerializable
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusText()
+    {
+        return $this->statusText;
+    }
+
+    /**
+     * @param mixed $statusText
+     */
+    public function setStatusText($statusText)
+    {
+        $this->statusText = $statusText;
+        return $this;
+
+    }
+
+    
 }
