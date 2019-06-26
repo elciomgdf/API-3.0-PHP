@@ -111,6 +111,16 @@ abstract class AbstractRequest
                 $exception = null;
                 $response  = json_decode($responseBody);
 
+                echo '<pre>'.__FILE__.'('.__LINE__.')'."\n";
+                var_dump($responseBody);
+                echo '</pre>';
+                exit;
+
+
+                if (!$response) {
+                    throw new CieloRequestException('Response cound not coverted to json', 400, null);
+                }
+
                 foreach ($response as $error) {
                     $cieloError = new CieloError($error->Message, $error->Code);
                     $exception  = new CieloRequestException('Request Error', $statusCode, $exception);
