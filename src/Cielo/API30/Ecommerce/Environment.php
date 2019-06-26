@@ -13,16 +13,19 @@ class Environment implements \Cielo\API30\Environment
 
     private $apiQuery;
 
+    private $environment;
+
     /**
      * Environment constructor.
      *
      * @param $api
      * @param $apiQuery
      */
-    private function __construct($api, $apiQuery)
+    private function __construct($api, $apiQuery, $environment = 'sandbox')
     {
         $this->api      = $api;
         $this->apiQuery = $apiQuery;
+        $this->environment = $environment;
     }
 
     /**
@@ -32,8 +35,9 @@ class Environment implements \Cielo\API30\Environment
     {
         $api      = 'https://apisandbox.cieloecommerce.cielo.com.br/';
         $apiQuery = 'https://apiquerysandbox.cieloecommerce.cielo.com.br/';
+        $environment = 'sandbox';
 
-        return new Environment($api, $apiQuery);
+        return new Environment($api, $apiQuery, $environment);
     }
 
     /**
@@ -43,8 +47,9 @@ class Environment implements \Cielo\API30\Environment
     {
         $api      = 'https://api.cieloecommerce.cielo.com.br/';
         $apiQuery = 'https://apiquery.cieloecommerce.cielo.com.br/';
+        $environment = 'production';
 
-        return new Environment($api, $apiQuery);
+        return new Environment($api, $apiQuery, $environment);
     }
 
     /**
@@ -66,4 +71,14 @@ class Environment implements \Cielo\API30\Environment
     {
         return $this->apiQuery;
     }
+
+    /**
+     *
+     * @return bool
+     */
+    public function isProduction() {
+        return $this->environment === 'production' ? true : false;
+    }
+
+
 }

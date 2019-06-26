@@ -41,7 +41,7 @@ abstract class AbstractRequest
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      * @throws \RuntimeException
      */
-    protected function sendRequest($method, $url, \JsonSerializable $content = null)
+    protected function sendRequest($method, $url, \JsonSerializable $content = null, \Cielo\API30\Ecommerce\Environment $environment = null)
     {
         $headers = [
             'Accept: application/json',
@@ -54,8 +54,8 @@ abstract class AbstractRequest
 
         $curl = curl_init($url);
 
-        curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSLVERSION, 6); //CURL_SSLVERSION_TLSv1_2
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $environment ? $environment->isProduction() : true);
 
         switch ($method) {
             case 'GET':

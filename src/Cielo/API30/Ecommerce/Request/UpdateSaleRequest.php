@@ -44,7 +44,7 @@ class UpdateSaleRequest extends AbstractRequest
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      * @throws \RuntimeException
      */
-    public function execute($paymentId)
+    public function execute($paymentId, $environment = null)
     {
         $url    = $this->environment->getApiUrl() . '1/sales/' . $paymentId . '/' . $this->type;
         $params = [];
@@ -59,7 +59,7 @@ class UpdateSaleRequest extends AbstractRequest
 
         $url .= '?' . http_build_query($params);
 
-        return $this->sendRequest('PUT', $url);
+        return $this->sendRequest('PUT', $url, null, $environment);
     }
 
     /**

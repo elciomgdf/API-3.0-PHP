@@ -36,11 +36,11 @@ class CreateSaleRequest extends AbstractRequest
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      * @throws \RuntimeException
      */
-    public function execute($sale)
+    public function execute($sale, \Cielo\API30\Ecommerce\Environment $environment = null)
     {
         $url = $this->environment->getApiUrl() . '1/sales/';
 
-        return $this->sendRequest('POST', $url, $sale);
+        return $this->sendRequest('POST', $url, $sale, $environment);
     }
 
     /**

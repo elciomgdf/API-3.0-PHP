@@ -40,7 +40,7 @@ class QueryRecurrentPaymentRequest extends AbstractRequest
     {
         $url = $this->environment->getApiQueryURL() . '1/RecurrentPayment/' . $recurrentPaymentId;
 
-        return $this->sendRequest('GET', $url);
+        return $this->sendRequest('GET', $url, null, $this->environment);
     }
 
     /**

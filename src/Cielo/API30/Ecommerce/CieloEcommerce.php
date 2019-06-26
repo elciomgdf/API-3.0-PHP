@@ -58,7 +58,7 @@ class CieloEcommerce
     {
         $createSaleRequest = new CreateSaleRequest($this->merchant, $this->environment);
 
-        return $createSaleRequest->execute($sale);
+        return $createSaleRequest->execute($sale, $this->environment);
     }
 
     /**
@@ -79,7 +79,7 @@ class CieloEcommerce
     {
         $querySaleRequest = new QuerySaleRequest($this->merchant, $this->environment);
 
-        return $querySaleRequest->execute($paymentId);
+        return $querySaleRequest->execute($paymentId, $this->environment);
     }
 
     /**
@@ -101,7 +101,7 @@ class CieloEcommerce
     {
         $queryRecurrentPaymentRequest = new queryRecurrentPaymentRequest($this->merchant, $this->environment);
 
-        return $queryRecurrentPaymentRequest->execute($recurrentPaymentId);
+        return $queryRecurrentPaymentRequest->execute($recurrentPaymentId, $this->environment);
     }
 
     /**
@@ -126,7 +126,7 @@ class CieloEcommerce
 
         $updateSaleRequest->setAmount($amount);
 
-        return $updateSaleRequest->execute($paymentId);
+        return $updateSaleRequest->execute($paymentId, $this->environment);
     }
 
     /**
@@ -157,7 +157,7 @@ class CieloEcommerce
         $updateSaleRequest->setAmount($amount);
         $updateSaleRequest->setServiceTaxAmount($serviceTaxAmount);
 
-        return $updateSaleRequest->execute($paymentId);
+        return $updateSaleRequest->execute($paymentId, $this->environment);
     }
 
     /**
@@ -169,6 +169,6 @@ class CieloEcommerce
     {
         $tokenizeCardRequest = new TokenizeCardRequest($this->merchant, $this->environment);
 
-        return $tokenizeCardRequest->execute($card);
+        return $tokenizeCardRequest->execute($card, $this->environment);
     }
 }

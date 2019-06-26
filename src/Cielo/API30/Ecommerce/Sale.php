@@ -68,7 +68,25 @@ class Sale implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return get_object_vars($this);
+
+        $finalArray = get_object_vars($this);
+        foreach ($finalArray as $key => $value) {
+
+            if(is_object($value) && method_exists($value, 'jsonSerialize')) {
+                $finalArray[$key] = $value->jsonSerialize();
+            }
+
+            if(is_array($finalArray[$key])){
+                foreach ($finalArray[$key] as $key2 => $value2) {
+                    if(is_object($value2) && method_exists($value2, 'jsonSerialize')) {
+                        $finalArray[$key][$key2] = $value2->jsonSerialize();
+                    }
+                }
+            }
+
+        }
+
+        return $finalArray;
     }
 
     /**

@@ -25,7 +25,7 @@ class CieloRequestException extends \Exception
     }
 
     /**
-     * @return mixed
+     * @return CieloError
      */
     public function getCieloError()
     {
