@@ -6,6 +6,7 @@ use Cielo\API30\Ecommerce\Request\CreateSaleRequest;
 use Cielo\API30\Ecommerce\Request\QueryRecurrentPaymentRequest;
 use Cielo\API30\Ecommerce\Request\QuerySaleRequest;
 use Cielo\API30\Ecommerce\Request\TokenizeCardRequest;
+use Cielo\API30\Ecommerce\Request\UpdateRecurrentRequest;
 use Cielo\API30\Ecommerce\Request\UpdateSaleRequest;
 use Cielo\API30\Merchant;
 
@@ -127,6 +128,22 @@ class CieloEcommerce
         $updateSaleRequest->setAmount($amount);
 
         return $updateSaleRequest->execute($paymentId, $this->environment);
+    }
+
+
+    /**
+     * @param $recurrentPaymentId
+     * @param null $amount
+     * @return null
+     * @throws Request\CieloRequestException
+     */
+    public function cancelRecurrentPayment($recurrentPaymentId, $amount = null)
+    {
+        $updateSaleRequest = new UpdateRecurrentRequest('Deactivate', $this->merchant, $this->environment);
+
+        $updateSaleRequest->setAmount($amount);
+
+        return $updateSaleRequest->execute($recurrentPaymentId, $this->environment);
     }
 
     /**
